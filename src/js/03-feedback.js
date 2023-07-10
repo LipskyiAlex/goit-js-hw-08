@@ -22,10 +22,10 @@ function isEmpty(e) {
   }
 
   if (dataStorage && dataStorage.email) {
-    form.email = dataStorage.email;
+    form.email.value = dataStorage.email;
   }
   if (dataStorage && dataStorage.message) {
-    form.message = dataStorage.message;
+    form.message.value = dataStorage.message;
   }
 
 }
@@ -48,12 +48,12 @@ function handleSubmit(event) {
 
   event.preventDefault();
 
-  if (!form.email) {
+  if (!form.email.value) {
     alert('Email is required input field');
     return;
   }
 
-  if (!form.message) {
+  if (!form.message.value) {
     alert("Message filed can't be empty. Enter at least 1 character!");
     return;
   }
