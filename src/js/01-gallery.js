@@ -27,3 +27,4 @@ new SimpleLightbox(".gallery a", {
 });
 
 
+
