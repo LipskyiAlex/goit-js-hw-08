@@ -2,19 +2,16 @@
 const throttle = require('lodash.throttle');
 
 const form = document.querySelector('.feedback-form');
-const formEmail = document.querySelector('.feedback-form input');
-const formMessage = document.querySelector('.feedback-form textarea');
-let dataStorage = JSON.parse(localStorage.getItem('feedback-form-state')) || {}
+
+let dataStorage = JSON.parse(localStorage.getItem('feedback-form-state')) || {};
 
 isEmpty();
 
-
-formEmail.addEventListener('input', throttle(dataEntry, 500));
-formMessage.addEventListener('input', throttle(dataEntry, 500));
+form.addEventListener("input", throttle(dataEntry,500));
 form.addEventListener('submit', handleSubmit);
 
 
-function isEmpty() {
+function isEmpty(e) {
 
   try {
 
@@ -25,20 +22,21 @@ function isEmpty() {
   }
 
   if (dataStorage && dataStorage.email) {
-    formEmail.value = dataStorage.email;
+    form.email = dataStorage.email;
   }
   if (dataStorage && dataStorage.message) {
-    formMessage.value = dataStorage.message;
+    form.message = dataStorage.message;
   }
 
 }
 
 function dataEntry() {
+
   localStorage.setItem(
     'feedback-form-state',
     JSON.stringify({
-      email: formEmail.value,
-      message: formMessage.value,
+      email: form.email.value,
+      message: form.message.value,
     })
   );
   dataStorage = JSON.parse(localStorage.getItem('feedback-form-state'));
@@ -50,17 +48,18 @@ function handleSubmit(event) {
 
   event.preventDefault();
 
-  if (!formEmail.value) {
+  if (!form.email) {
     alert('Email is required input field');
     return;
   }
 
-  if (!formMessage.value) {
+  if (!form.message) {
     alert("Message filed can't be empty. Enter at least 1 character!");
     return;
   }
   
   console.log(dataStorage);
+
   form.reset();
 }
 
